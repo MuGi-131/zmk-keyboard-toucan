@@ -45,25 +45,15 @@ static void draw_top(lv_obj_t *widget, lv_color_t cbuf[], const struct status_st
 
     if (is_sleep_screen_active()) {
         draw_sleep_screen(canvas);
-    } else {
-        // Draw widgets
-        draw_output_status(canvas, state);
-        draw_layer_status(canvas, state);
-        draw_profile_status(canvas, state);
-        draw_battery_status(canvas, state);
-        draw_battery_peripheral_status(canvas, state);
+        return;
     }
 
-#if IS_ENABLED(CONFIG_NICE_VIEW_WIDGET_INVERTED)
-    {
-        lv_img_dsc_t *img = (lv_img_dsc_t *)lv_canvas_get_img(canvas);
-        uint8_t *data = (uint8_t *)img->data;
-        uint32_t size = img->data_size;
-        for (uint32_t i = 0; i < size; i++) {
-            data[i] ^= 0xFF;
-        }
-    }
-#endif
+    // Draw widgets
+    draw_output_status(canvas, state);
+    draw_layer_status(canvas, state);
+    draw_profile_status(canvas, state);
+    draw_battery_status(canvas, state);
+    draw_battery_peripheral_status(canvas, state);
 }
 
 /**
